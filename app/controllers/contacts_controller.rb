@@ -16,7 +16,7 @@ class ContactsController < ApplicationController
 
   # GET /contacts/1
   def show
-    render json: @contact, include: [ :kind, :phones, :address ]
+    render json: @contact, include: [ :kind, :address, :phones ]# , meta: { author: "fg" }
     # render json: @contact.attributes.merge({ author: "fg" })
     # render json: { name: @contact.name, email: @contact.email }
   end
