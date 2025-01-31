@@ -1,6 +1,20 @@
 Rails.application.routes.draw do
   resources :kinds
-  resources :contacts
+
+  resources :contacts do
+    resource :kind, only: [ :show ]
+    resource :kind, only: [ :show ], path: "relashionships/kind"
+
+    resource :phones, only: [ :show ]
+    resource :phones, only: [ :show ], path: "relashionships/phones"
+
+    resource :phone, only: [ :update, :create, :destroy ]
+    resource :phone, only: [ :update, :create, :destroy ], path: "relashionships/phones"
+
+    resource :address, only: [ :show, :update, :create, :destroy ]
+    resource :address, only: [ :show, :update, :create, :destroy ], path: "relashionships/address"
+  end
+
   # get "/contacts", to: "contacts#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
