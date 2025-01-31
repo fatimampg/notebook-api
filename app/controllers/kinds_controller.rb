@@ -41,7 +41,16 @@ class KindsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_kind
-      @kind = Kind.find(params.expect(:id))
+      if params[:contact_id]
+        @kind = Contact.find(params[:contact_id]).kind  # Kind method invoked on Contact obj because of the belongs_to :kind association in Contact model - the kind_id in contacts is then used to find the associated Kind record.
+        puts "#Kind id1: #{@kind.inspect} and type: #{@kind.class}"
+        return @kind
+        # kind_id = Contact.find(params[:contact_id]).kind.id
+        # puts "#Kind id1: #{kind_id.inspect} and type: #{kind_id.class}"
+        # return @kind = Kind.find(kind_id)
+      end
+
+      @kind = Kind.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
