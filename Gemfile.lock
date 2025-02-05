@@ -362,7 +362,6 @@ DEPENDENCIES
   bootsnap
   brakeman
   debug
-  devise
   devise_token_auth
   faker
   foreman

@@ -48,7 +48,7 @@ gem "jwt"
 gem "devise_token_auth"
 
 # Flexible authentication solution for Rails with Warden.
-gem "devise"
+# gem "devise"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
