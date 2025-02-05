@@ -4,18 +4,39 @@ Rails.application.routes.draw do
   resources :kinds
   resource :auths, only: [ :create ]
 
-  resources :contacts do
-    resource :kind, only: [ :show ]
-    resource :kind, only: [ :show ], path: "relashionships/kind"
+  scope module: "v1" do
+    resources :contacts, constraints: lambda { |request| request.params[:version] == "1" } do
+      # contraints - allows applying logic to determine wether this route should be used or not
+      # lambda - anonymous function that takes params and return a value
+      # path: /contacts?version=1
+      resource :kind, only: [ :show ]
+      resource :kind, only: [ :show ], path: "relashionships/kind"
 
-    resource :phones, only: [ :show ]
-    resource :phones, only: [ :show ], path: "relashionships/phones"
+      resource :phones, only: [ :show ]
+      resource :phones, only: [ :show ], path: "relashionships/phones"
 
-    resource :phone, only: [ :update, :create, :destroy ]
-    resource :phone, only: [ :update, :create, :destroy ], path: "relashionships/phones"
+      resource :phone, only: [ :update, :create, :destroy ]
+      resource :phone, only: [ :update, :create, :destroy ], path: "relashionships/phones"
 
-    resource :address, only: [ :show, :update, :create, :destroy ]
-    resource :address, only: [ :show, :update, :create, :destroy ], path: "relashionships/address"
+      resource :address, only: [ :show, :update, :create, :destroy ]
+      resource :address, only: [ :show, :update, :create, :destroy ], path: "relashionships/address"
+    end
+  end
+
+  scope module: "v2" do
+    resources :contacts, constraints: lambda { |request| request.params[:version] == "2" } do
+      resource :kind, only: [ :show ]
+      resource :kind, only: [ :show ], path: "relashionships/kind"
+
+      resource :phones, only: [ :show ]
+      resource :phones, only: [ :show ], path: "relashionships/phones"
+
+      resource :phone, only: [ :update, :create, :destroy ]
+      resource :phone, only: [ :update, :create, :destroy ], path: "relashionships/phones"
+
+      resource :address, only: [ :show, :update, :create, :destroy ]
+      resource :address, only: [ :show, :update, :create, :destroy ], path: "relashionships/address"
+    end
   end
 
   # get "/contacts", to: "contacts#index"
