@@ -1,10 +1,10 @@
 class KindsController < ApplicationController
-  # Auth with JWT --> to be replaced by auth with devise and devise_token_auth
-  include ActionController::HttpAuthentication::Token::ControllerMethods
-  before_action :authenticate
+  # Auth with JWT --> replaced by auth with devise and devise_token_auth
+  # include ActionController::HttpAuthentication::Token::ControllerMethods
+  # before_action :authenticate
 
 
-  # before_action :authenticate_user!  #  auth with devise and devise_token_auth
+  before_action :authenticate_user!  #  auth with devise and devise_token_auth
   before_action :set_kind, only: [ :show, :update, :destroy ]
 
   # GET /kinds
@@ -64,17 +64,17 @@ class KindsController < ApplicationController
       params.expect(kind: [ :description ])
     end
 
-  # Auth with JWT --> to be replaced by auth with devise and devise_token_auth
-  def authenticate
-    # authenticate_or_request_with_http - can take the token in front of Bearer (auth header)
-    authenticate_or_request_with_http_token do |token, options|
-      # to mitigate timing-attacks
-      # ActiveSupport::SecurityUtils.secure_compare(
-      #   ::Digest::SHA256.hexdigest(token),
-      #   ::Digest::SHA256.hexdigest(TOKEN)
-      # )
-      hmac_secret = "my$ecretK3y"
-      JWT.decode(token, hmac_secret, true, { algorithm: "HS256" })
-    end
-  end
+  # Auth with JWT --> replaced by auth with devise and devise_token_auth
+  # def authenticate
+  #   # authenticate_or_request_with_http - can take the token in front of Bearer (auth header)
+  #   authenticate_or_request_with_http_token do |token, options|
+  #     # to mitigate timing-attacks
+  #     # ActiveSupport::SecurityUtils.secure_compare(
+  #     #   ::Digest::SHA256.hexdigest(token),
+  #     #   ::Digest::SHA256.hexdigest(TOKEN)
+  #     # )
+  #     hmac_secret = "my$ecretK3y"
+  #     JWT.decode(token, hmac_secret, true, { algorithm: "HS256" })
+  #   end
+  # end
 end
