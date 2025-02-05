@@ -41,6 +41,15 @@ gem "active_model_serializers"
 # Manage Procfile-based applications
 gem "foreman"
 
+# A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
+gem "jwt"
+
+# Token based authentication for Rails JSON APIs. Designed to work with jToker and ng-token-auth
+gem "devise_token_auth"
+
+# Flexible authentication solution for Rails with Warden.
+gem "devise"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
