@@ -4,11 +4,8 @@ Rails.application.routes.draw do
   resources :kinds
   resource :auths, only: [ :create ]
 
-  scope module: "v1" do
-    resources :contacts, constraints: lambda { |request| request.params[:version] == "1" } do
-      # contraints - allows applying logic to determine wether this route should be used or not
-      # lambda - anonymous function that takes params and return a value
-      # path: /contacts?version=1
+  concern :api do
+    resources :contacts do
       resource :kind, only: [ :show ]
       resource :kind, only: [ :show ], path: "relashionships/kind"
 
@@ -23,20 +20,17 @@ Rails.application.routes.draw do
     end
   end
 
-  scope module: "v2" do
-    resources :contacts, constraints: lambda { |request| request.params[:version] == "2" } do
-      resource :kind, only: [ :show ]
-      resource :kind, only: [ :show ], path: "relashionships/kind"
+ namespace "v1" do
+    concerns :api
+  end
 
-      resource :phones, only: [ :show ]
-      resource :phones, only: [ :show ], path: "relashionships/phones"
+  namespace "v2" do
+    concerns :api
+  end
 
-      resource :phone, only: [ :update, :create, :destroy ]
-      resource :phone, only: [ :update, :create, :destroy ], path: "relashionships/phones"
-
-      resource :address, only: [ :show, :update, :create, :destroy ]
-      resource :address, only: [ :show, :update, :create, :destroy ], path: "relashionships/address"
-    end
+  # requests for /contacts (no version specified) - use V1 namespace
+  scope module: "v1" do
+    concerns :api
   end
 
   # get "/contacts", to: "contacts#index"
