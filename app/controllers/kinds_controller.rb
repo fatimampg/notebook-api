@@ -3,7 +3,6 @@ class KindsController < ApplicationController
   # include ActionController::HttpAuthentication::Token::ControllerMethods
   # before_action :authenticate
 
-
   before_action :authenticate_user!  #  auth with devise and devise_token_auth
   before_action :set_kind, only: [ :show, :update, :destroy ]
 
