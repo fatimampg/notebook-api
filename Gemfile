@@ -65,4 +65,7 @@ group :development, :test do
 
   # Rails >= 3 pry initializer
   gem "pry-rails"
+
+  # RSpec for Rails 7+
+  gem "rspec-rails"
 end
