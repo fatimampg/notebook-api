@@ -7,8 +7,15 @@ module V1
     # GET /contacts
     def index
       @contacts = Contact.all
-      render json: @contacts
 
+      expires_in 30.seconds, public: true
+      # status: 304 - Not modified (when requested within that period) (if content doesnt change (via ETag or Last-Modified headers), may return 304 even after the expiration period due to rails' internal cache mechanism)
+      if stale?(etag: @contacts)
+        render json: @contacts
+      end
+      # if stale?(last_modified: @contacts[0].updated_at)
+      #   render json: @contacts
+      # end
       # render json: @contacts, status: :ok, root: false, only: [ :email, :name ]
       # no need to directly call to_json (Rails does it under the hood)
       # root: true --> add root element (in this case, contact) (the data for each contact will be nested inside that root)
