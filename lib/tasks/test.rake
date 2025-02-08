@@ -3,8 +3,8 @@ namespace :test_db do
   task setup: :environment do
     puts "Reset test database"
 
-    test_db_path = "storage/test.sqlite3"
-    File.delete(test_db_path) if File.exist?(test_db_path)
+    # test_db_path = "storage/test.sqlite3"
+    # File.delete(test_db_path) if File.exist?(test_db_path)
     system("RAILS_ENV=test rails db:create")
     # %x(RAILS_ENV=test rails db:create)
     system("RAILS_ENV=test rails db:schema:load")

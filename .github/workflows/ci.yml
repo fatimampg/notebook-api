@@ -64,9 +64,7 @@ jobs:
         env:
           RAILS_ENV: test
           # REDIS_URL: redis://localhost:6379/0
-        run: |
-          bin/rails db:create
-          bin/rails db:schema:load
+        run: bin/rake test_db:setup
 
 
       - name: Run rspec tests
