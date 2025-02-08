@@ -1,24 +1,59 @@
-# README
+# NOTEBOOK - Contact management API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Ruby on Rails API
 
-Things you may want to cover:
+- **Rails version:** 8.0.1
+- **Database:** SQLite (configured in config/database.yml)
+- **JSON:API:** Uses ActiveModel::Serializer for serialization
+- **Authentication:** Uses Devise Token Auth
 
-* Ruby version
 
-* System dependencies
+### Set up:
 
-* Configuration
+- **Clone repository** (HTTPS):
+```bash
+git clone https://github.com/fatimampg/notebook-api.git
+```
 
-* Database creation
+- **Install dependencies:**
+```bash
+bundle install
+```
 
-* Database initialization
+- **Set up the database:**
+```bash
+rails db:create
+rails db:migrate
+```
 
-* How to run the test suite
+- **Populate the database (Data generated using Faker gem):**</br>
 
-* Services (job queues, cache servers, search engines, etc.)
+Development database:
+```bash
+rake dev:setup
+```
+Test database:
+```bash
+rake test_db:setup
+```
 
-* Deployment instructions
+- **Start server:**</br>
 
-* ...
+ Using Foreman (processes and commands defined in Procfile):
+```bash
+foreman start
+```
+Without Foreman:
+```bash
+rails server
+```
+(Available at : http://localhost:3000/)
+
+- **List of Routes (Browser):**</br>
+ Go to: http://localhost:3000/rails/info/routes
+
+- **Run tests (RSpec):**
+
+```bash
+bundle exec rspec
+```
