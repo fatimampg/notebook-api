@@ -1,7 +1,6 @@
 require_relative "boot"
 
 require "rails/all"
-
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -17,7 +16,6 @@ module NotebookApi
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w[assets tasks])
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -31,5 +29,11 @@ module NotebookApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    # confug.add.autoload_paths false
+    # eager load of all files?
+    # config.autoload_paths << Rails.root.join("lib") # autoload /lib
+    # config.autoload_lib(ignore: %w[assets tasks])
+    require "#{Rails.root}/app/middleware/app_name"
+    config.middleware.use AppName, "Notebook API"  # arg app_name
   end
 end
