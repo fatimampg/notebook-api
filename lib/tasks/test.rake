@@ -1,11 +1,14 @@
-namespace :dev do
-  desc "Config dev environment"
+namespace :test_db do
+  desc "Config test database"
   task setup: :environment do
-    puts "Reset database"
-    # %x(rails db:drop db:create db:migrate)
-    system("rails db:drop")
-    system("db:create")
-    system("db:migrate")
+    puts "Reset test database"
+
+    test_db_path = "storage/test.sqlite3"
+    File.delete(test_db_path) if File.exist?(test_db_path)
+    system("RAILS_ENV=test rails db:create")
+    # %x(RAILS_ENV=test rails db:create)
+    system("RAILS_ENV=test rails db:schema:load")
+    # %x(RAILS_ENV=test rails db:schema:load)
 
     puts "Creating kind of contacts"
     kinds = [ "Friend", "Commercial", "Known" ]
